@@ -8,6 +8,7 @@ import { initUser } from '../src/models/users.models';
 import { initUserRole } from '../src/models/user_roles.models';
 import { initRolePermission } from '../src/models/role_permissions.models';
 import { initUiNavigation } from '../src/models/ui_navigation.models';
+import { initReport } from '../src/models/reports.models';
 
 const sequelize: Sequelize = new Sequelize(
   process.env.DB_NAME ?? 'report',
@@ -33,6 +34,7 @@ export const Organization = initOrganization(sequelize);
 export const UserRoles = initUserRole(sequelize);
 export const RolePermissions = initRolePermission(sequelize);
 export const UINavigation = initUiNavigation(sequelize);
+export const Report = initReport(sequelize);
 
 Role.associate({
   User,
@@ -66,6 +68,11 @@ RolePermissions.associate({
   Role,
   Permission,
 });
+
+Report.associate({
+  Organization  
+})
+
 sequelize.sync().then(() => {
   console.info('!!! >>> db Connected <<< !!!');
 });
