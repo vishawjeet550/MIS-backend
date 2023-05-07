@@ -1,0 +1,55 @@
+import { Model, Sequelize, Optional, UUID } from 'sequelize';
+
+interface RolePermissionAttributes {
+    RoleUuid: string;
+    PermissionUuid: string;
+}
+
+interface RolePermissionCreationAttributes extends Optional<RolePermissionAttributes, 'RoleUuid' | 'PermissionUuid'> { }
+
+class RolePermission extends Model<RolePermissionAttributes, RolePermissionCreationAttributes> implements RolePermissionAttributes {
+    public RoleUuid!: string;
+    public PermissionUuid!: string;
+
+    public static associate(models: any): void {
+        RolePermission.belongsTo(models.Role, { foreignKey: 'RoleUuid' });
+        RolePermission.belongsTo(models.Permission, { foreignKey: 'PermissionUuid' });
+    }
+}
+
+export function initRolePermission (sequelize: Sequelize): typeof RolePermission {
+    RolePermission.init(
+        {
+            RoleUuid: {
+                type: UUID,
+                allowNull: false,
+                primaryKey: true,
+                defaultValue: UUID,
+                references: {
+                    model: 'roles',
+                    key: 'uuid',
+                },
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            },
+            PermissionUuid: {
+                type: UUID,
+                allowNull: false,
+                primaryKey: true,
+                references: {
+                    model: 'permissions',
+                    key: 'uuid',
+                },
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            },
+        },
+        {
+            sequelize,
+            tableName: 'role_permissions',
+            timestamps: false,
+        },
+    );
+
+    return RolePermission;
+}
