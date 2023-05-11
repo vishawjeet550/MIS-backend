@@ -6,9 +6,12 @@ interface UserAttributes {
   password: string;
   email: string;
   organization_uuid: string;
+  createdAt: Date;
+  deletedAt: Date;
+  updatedAt: Date;
 }
 
-interface UserCreationAttributes extends Omit<UserAttributes, 'uuid'> {}
+interface UserCreationAttributes extends Omit<UserAttributes, 'uuid'> { }
 
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public uuid!: string;
@@ -16,6 +19,9 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   public password!: string;
   public email!: string;
   public organization_uuid!: string;
+  public createdAt!: Date;
+  public deletedAt!: Date;
+  public updatedAt!: Date;
 
   static associate(models: any) {
     User.belongsTo(models.Organization, { foreignKey: 'organization_uuid' });
@@ -51,8 +57,24 @@ export function initUser(sequelize: Sequelize): typeof User {
           key: 'uuid',
         },
       },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      deletedAt: {
+        type: DataTypes.DATE,
+        defaultValue: null
+      }
     },
     {
+      timestamps: true,
+      paranoid: true,
       sequelize,
       tableName: 'users',
     },

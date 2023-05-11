@@ -1,5 +1,4 @@
 import { Sequelize } from 'sequelize';
-require('dotenv').config();
 
 import { initRole } from '../src/models/roles.models';
 import { initPermission } from '../src/models/permissions.models';
@@ -9,14 +8,17 @@ import { initUserRole } from '../src/models/user_roles.models';
 import { initRolePermission } from '../src/models/role_permissions.models';
 import { initUiNavigation } from '../src/models/ui_navigation.models';
 import { initReport } from '../src/models/reports.models';
+import config from './env'
+
+const { database, username, dialect, host, password }: any = config
 
 const sequelize: Sequelize = new Sequelize(
-  process.env.DB_NAME ?? 'report',
-  process.env.DB_USERNAME ?? 'root',
-  process.env.DB_PASSWORD ?? 'password',
+  database,
+  username,
+  password,
   {
-    host: process.env.DB_HOST ?? '127.0.0.1',
-    dialect: 'mysql',
+    host: host,
+    dialect: dialect,
     dialectOptions: {
       decimalNumbers: true
     },

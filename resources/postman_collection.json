@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "fc9677f6-f60f-441b-a94c-83368edc72d5",
+		"name": "MIS Report",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12780752"
+	},
+	"item": [
+		{
+			"name": "mis report",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJ1c2VybmFtZSI6ImpvaG5fZG9lIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjgzNDg2MzI1LCJleHAiOjE2ODM0ODk5MjV9.eQs-hyw04G8Yw6pyNUpLyd_kjH1TwgLnC2jzjeZ4pzs",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/mis/mis-report?report_type=Report Type 8&page=3&limit=1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"mis",
+						"mis-report"
+					],
+					"query": [
+						{
+							"key": "report_type",
+							"value": "Report Type 8"
+						},
+						{
+							"key": "page",
+							"value": "3"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate-token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/token/generate-token",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"token",
+						"generate-token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}

@@ -1,10 +1,13 @@
-import { Model, Sequelize, Optional, UUID, STRING } from 'sequelize';
+import { Model, Sequelize, Optional, UUID, STRING, DataTypes } from 'sequelize';
 
 interface UiNavigationAttributes {
     uuid: string;
     name: string;
     url: string;
     PermissionUuid: string;
+    createdAt: Date;
+    deletedAt: Date;
+    updatedAt: Date;
 }
 
 interface UiNavigationCreationAttributes extends Optional<UiNavigationAttributes, 'uuid'> { }
@@ -14,6 +17,9 @@ class UiNavigation extends Model<UiNavigationAttributes, UiNavigationCreationAtt
     public name!: string;
     public url!: string;
     public PermissionUuid!: string;
+    public createdAt!: Date;
+    public deletedAt!: Date;
+    public updatedAt!: Date;
 
     public static associate(models: any): void {
         UiNavigation.belongsTo(models.Permission, { foreignKey: 'PermissionUuid' });
@@ -46,11 +52,26 @@ export function initUiNavigation (sequelize: Sequelize): typeof UiNavigation {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
             },
+            createdAt: {
+                type: DataTypes.DATE,
+                allowNull: false,
+                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+            },
+            updatedAt: {
+                type: DataTypes.DATE,
+                allowNull: false,
+                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+            },
+            deletedAt: {
+                type: DataTypes.DATE,
+                defaultValue: null
+            }
         },
         {
             sequelize,
             tableName: 'ui_navigation',
-            timestamps: false,
+            timestamps: true,
+            paranoid: true, 
         },
     );
 

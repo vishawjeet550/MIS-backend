@@ -1,3 +1,4 @@
+const { faker } = require('@faker-js/faker')
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -8,11 +9,13 @@ module.exports = {
       for (let i = 0; i < 100; i++) {
         reports.push({
           organization_id: org.uuid,
-          report_type: `Report Type ${i}`,
+          report_type: faker.name.jobTitle(),
           report_date: new Date(),
           report_data: JSON.stringify({
-            data: Math.random(),
-            info: `Random info ${i}`
+            data: Math.random() * 99990,
+            product_name: `Product name ${i}`,
+            production_status: 'In Progress',
+            product_amount: Math.random() * 99999
           }),
           created_at: new Date(),
           updated_at: new Date()

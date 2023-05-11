@@ -6,8 +6,9 @@ interface ReportAttributes {
     report_type: string;
     report_date: Date;
     report_data: string;
-    created_at?: Date;
-    updated_at?: Date;
+    createdAt: Date;
+    deletedAt: Date;
+    updatedAt: Date;
 }
 
 class Report extends Model<ReportAttributes> implements ReportAttributes {
@@ -16,8 +17,9 @@ class Report extends Model<ReportAttributes> implements ReportAttributes {
     public report_type!: string;
     public report_date!: Date;
     public report_data!: string;
-    public created_at?: Date;
-    public updated_at?: Date;
+    public createdAt!: Date;
+    public deletedAt!: Date;
+    public updatedAt!: Date;
 
     static associate(models: any) {
         Report.belongsTo(models.Organization, { foreignKey: 'organization_id' });
@@ -52,16 +54,24 @@ export function initReport(sequelize: Sequelize): typeof Report {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
-            created_at: {
+            createdAt: {
                 type: DataTypes.DATE,
-                defaultValue: DataTypes.NOW
+                allowNull: false,
+                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
             },
-            updated_at: {
+            updatedAt: {
                 type: DataTypes.DATE,
-                defaultValue: DataTypes.NOW
+                allowNull: false,
+                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+            },
+            deletedAt: {
+                type: DataTypes.DATE,
+                defaultValue: null
             }
         },
         {
+            timestamps: true,
+            paranoid: true, 
             sequelize,
             tableName: 'reports',
             underscored: true
