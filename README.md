@@ -1,4 +1,3 @@
-
 # MIS Backend
 
 This is a project based on the MIS report ( MIS Report stands for Management Information System and is an umbrella term to describe a set of reports that give a view of the day-to-day activities of a business which allows your business's functions to be analyzed. )
@@ -25,62 +24,9 @@ Choice of Plugins/Packages:
     jsonwebtoken: Chosen for authentication purposes because it is a widely used library for generating and verifying JSON web tokens.
     faker: Chosen for generating fake data to be used in testing and development environments.
     dotenv: Chosen to easily manage environment variables in a .env file, which makes it easier to manage configuration and secrets.
-
-Overall, these technologies and libraries were chosen for their reliability, performance, and ease of use in building a scalable and secure web application with robust authentication and authorization.
-
-Backend Implementation Architecture:
-
-    The backend of this project is built using Node.js and Express framework, which provides a simple and easy-to-use web server that can handle API requests.
-    TypeScript has been used as a programming language to write the backend code. This provides the benefits of type checking and easier code maintenance.
-    Sequelize, a Node.js Object Relational Mapper (ORM), has been used as a database toolkit for this project. It provides an easy way to interact with the MySQL database and perform various operations on it.
-    Redis has been used as a caching layer to store frequently used data in memory and reduce the load on the database. The redis package is used to interact with Redis in Node.js.
-    The API endpoint to generate JSON based on query parameters is implemented in the controller layer of the application. It takes the report type as input and generates a paginated response based on it. It checks the Redis cache first and if the data is not found, it fetches it from the MySQL database and stores it in Redis for future use.
-    The authentication layer has been implemented using JWT tokens. The server generates a token when a user logs in and sends it to the client. The client sends this token in the Authorization header with every subsequent request. The server verifies the token and grants access to protected routes accordingly.
-
-
-
-
-
-# MIS Backend
-
-This is a project based on the MIS report ( MIS Report stands for Management Information System and is an umbrella term to describe a set of reports that give a view of the day-to-day activities of a business which allows your business's functions to be analyzed. )
-
-Tech Stack:
-
-    Node.js: a popular and widely-used JavaScript runtime environment for building server-side applications
-    Express: a fast and minimalist web framework for Node.js
-    Sequelize: a promise-based ORM for Node.js which supports multiple databases like MySQL, PostgreSQL, SQLite and MSSQL
-    TypeScript: a typed superset of JavaScript that compiles to plain JavaScript
-    Nodemon: a tool that automatically restarts the server when changes are made to the code
-    mysql2: a fast MySQL driver for Node.js which supports promises and prepared statements
-    jsonwebtoken: a library for generating, verifying, and decoding JSON web tokens (JWT)
-    faker: a library for generating fake data
-    dotenv: a zero-dependency module that loads environment variables from a .env file
-
-Choice of Plugins/Packages:
-
-    Express: Chosen because it is fast, lightweight, and easy to use for building web applications and APIs.
-    Sequelize: Chosen because it is a powerful ORM that supports multiple databases and has a strong community of contributors.
-    TypeScript: Chosen because it provides additional type checking and helps catch errors early in the development process.
-    Nodemon: Chosen to automatically restart the server during development, which saves time and improves the development experience.
-    mysql2: Chosen because it is fast and supports promises and prepared statements, which can help prevent SQL injection attacks.
-    jsonwebtoken: Chosen for authentication purposes because it is a widely used library for generating and verifying JSON web tokens.
-    faker: Chosen for generating fake data to be used in testing and development environments.
-    dotenv: Chosen to easily manage environment variables in a .env file, which makes it easier to manage configuration and secrets.
-
-Overall, these technologies and libraries were chosen for their reliability, performance, and ease of use in building a scalable and secure web application with robust authentication and authorization.
-
-Backend Implementation Architecture:
-
-    The backend of this project is built using Node.js and Express framework, which provides a simple and easy-to-use web server that can handle API requests.
-    TypeScript has been used as a programming language to write the backend code. This provides the benefits of type checking and easier code maintenance.
-    Sequelize, a Node.js Object Relational Mapper (ORM), has been used as a database toolkit for this project. It provides an easy way to interact with the MySQL database and perform various operations on it.
-    Redis has been used as a caching layer to store frequently used data in memory and reduce the load on the database. The redis package is used to interact with Redis in Node.js.
-    The API endpoint to generate JSON based on query parameters is implemented in the controller layer of the application. It takes the report type as input and generates a paginated response based on it. It checks the Redis cache first and if the data is not found, it fetches it from the MySQL database and stores it in Redis for future use.
-    The authentication layer has been implemented using JWT tokens. The server generates a token when a user logs in and sends it to the client. The client sends this token in the Authorization header with every subsequent request. The server verifies the token and grants access to protected routes accordingly.
-
 
 Database Schema:
+    <img width="935" alt="image" src="https://user-images.githubusercontent.com/65889300/236723260-e0794ef4-14cf-45d7-84e6-a7034b272701.png">
     Users Table: This table will store all the user details such as their UUID, username, password, email, and organization UUID. The UUID will be the primary key for the table and will be used as a foreign key in other tables. The purpose of this table is to manage user authentication and authorization in the application.
 
     Roles Table: This table will store all the role details such as their UUID and name. The UUID will be the primary key for the table and will be used as a foreign key in other tables. The purpose of this table is to define the roles of the users in the organization.
@@ -100,3 +46,12 @@ Database Schema:
 Endpoints
 
     There are two endpoints in this system. The first one is /generate-token, which returns a token generated by jsonwebtoken. This token is required to access the other API endpoints. The second endpoint is /mis-report, which returns MIS data based on the report type requested. The results returned by this endpoint will be paginated.
+
+
+Server Start:
+
+    Install reddis and in a new terminal start the reddis-server
+    Another terminal, run npm install and start the local server by running the npm run dev
+    Make sure sql is running
+    Use sequelize-cli to run sedders for dummy data
+
