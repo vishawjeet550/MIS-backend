@@ -7,6 +7,6 @@ import { verifyToken } from '../middlewares/auth.middlewares';
 const routes = express.Router();
 
 routes.use('/token', authRoutes)
-routes.use('/mis', verifyToken, misRoutes)
+routes.use('/mis', misRoutes)
 
 export default routes
